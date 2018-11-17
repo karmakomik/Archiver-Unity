@@ -132,9 +132,14 @@ namespace LightBuzz.Archiver
                 throw new ArgumentException("Source is a directory. You need to specify the name of a zip file, instead.");
             }
 
-            if (File.GetAttributes(destination) != FileAttributes.Directory)
+            /*if (File.GetAttributes(destination) != FileAttributes.Directory)
             {
                 throw new ArgumentException("Destination is not a directory. You need to specify the name of a directory, instead.");
+            }*/
+
+            if (!File.GetAttributes(destination).HasFlag(FileAttributes.Directory))
+            {
+                throw new ArgumentException("Destination is not a directory. You need to specify the name of a directory, instead. File attributes are : " + File.GetAttributes(destination));
             }
 
             if (!File.Exists(source))
